@@ -1,0 +1,28 @@
+name: Sync
+
+# Controls when the workflow will run
+on:
+  workflow_dispatch:
+  schedule: 
+    - cron: "*/30 * * * *"
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Sync and merge upstream repository with your current repository
+        uses: dabreadman/sync-upstream-repo@v1.0.0.b
+        with:
+          # URL of gitHub public upstream repo
+          upstream_repo: "https://github.com/lennychuCS/hexawordle-app"
+          # Branch to merge from upstream (defaults to downstream branch)
+          upstream_branch: main
+          # Branch to merge into downstream
+          downstream_branch: main
+          # GitHub Bot token
+          token: ${{ secrets.GITHUB_TOKEN }}
+
